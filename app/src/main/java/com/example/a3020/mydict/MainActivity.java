@@ -1,8 +1,6 @@
 package com.example.a3020.mydict;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -108,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         menuSetting =  menu.findItem(R.id.action_settings);
 
-        String id= Global.getState(this,"dict_type");
+        String id= SaveState.getState(this,"dict_type");
 
         if(id!= null)
             onOptionsItemSelected(menu.findItem(Integer.valueOf(id)));
@@ -127,7 +124,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
          // Save the state
-        Global.saveState(this,"dict_type", String.valueOf(id));
+        SaveState.saveState(this,"dict_type", String.valueOf(id));
 
         ArrayList<String> source = dbHelper.getWord(id);
         //noinspection SimplifiableIfStatement
