@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/ic_arrow_forward"
+        android:icon="@drawable/aftoam"
         android:orderInCategory="100"
         android:title=""
         app:showAsAction="always">
@@ -11,19 +11,19 @@
             <item
                 android:id="@+id/action_entk"
                 android:orderInCategory="100"
-                android:icon="@drawable/ic_arrow_forward"
-                android:title="Amharic - Somlia"
+                android:icon="@drawable/aftoam"
+                android:title="Afar - Amaharic"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_kten"
-                android:icon="@drawable/ic_arrow_back"
-                android:title="Somlia - Amharic"
+                android:icon="@drawable/amtoaf"
+                android:title="Amaharic - Afar"
                 android:orderInCategory="100"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_ktk"
-                android:icon="@drawable/ic_equalizer"
-                android:title="Amharic - Amharic"
+                android:icon="@drawable/aftoaf"
+                android:title="Afar - Afar"
                 android:orderInCategory="100"
                 app:showAsAction="never" />
         </menu>

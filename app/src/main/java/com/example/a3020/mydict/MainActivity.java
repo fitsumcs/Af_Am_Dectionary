@@ -131,19 +131,19 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_entk)
         {
             dictionaryFragment.resetDataSource(source);
-             menuSetting.setIcon(getDrawable(R.drawable.ic_arrow_forward));
+             menuSetting.setIcon(getDrawable(R.drawable.aftoam));
         }
         else if(id == R.id.action_kten)
         {
             dictionaryFragment.resetDataSource(source);
-            menuSetting.setIcon(getDrawable(R.drawable.ic_arrow_back));
+            menuSetting.setIcon(getDrawable(R.drawable.amtoaf));
 
         }
      
         else if(id == R.id.action_ktk)
         {
             dictionaryFragment.resetDataSource(source);
-            menuSetting.setIcon(getDrawable(R.drawable.ic_equalizer));
+            menuSetting.setIcon(getDrawable(R.drawable.aftoaf));
 
         }
 

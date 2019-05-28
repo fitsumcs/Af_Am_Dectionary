@@ -89,7 +89,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<String> getWord(int dicType) {
         String tableName = getTableName(dicType);
 
-        String q = "select * from " + tableName;
+        String q = "select * from " + AmToSo;
         Cursor result = mDB.rawQuery(q, null);
         ArrayList<String> source = new ArrayList<String>();
         while (result.moveToNext()) {
