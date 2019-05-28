@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
     private Context mcContext;
-    public static final String DATABASE_NAME = "MyDictDb.db";
+    public static final String DATABASE_NAME = "DictionaryDatabase.db";
     public static final int DATABASE_VERSION = 1;
     private String DATABASE_LOCATION = "";
     private String DATABASE_FULLPATH = "";
@@ -91,9 +91,19 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<String> getWord(int dicType) {
         String tableName = getTableName(dicType);
 
-        System.out.println(tableName);
+        String q = "";
+        if(tableName=="AfToAm")
+        {
+            q = "SELECT * FROM " + AfToAm;
+        }
+        else if(tableName=="AmToAf")
+        {
+            q = "SELECT * FROM  " + AmToAf;
+        }
+        else
+           q = "SELECT * FROM " + AfToAf;
 
-        String q = "SELECT * FROM " + tableName;
+
         Cursor result = mDB.rawQuery(q, null);
         ArrayList<String> source = new ArrayList<String>();
         while (result.moveToNext()) {

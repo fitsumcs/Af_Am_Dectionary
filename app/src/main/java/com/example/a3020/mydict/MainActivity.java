@@ -124,10 +124,11 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
          // Save the state
-        SaveState.saveState(this,"dict_type", String.valueOf(id));
+        //SaveState.saveState(this,"dict_type", String.valueOf(id));
 
         ArrayList<String> source = dbHelper.getWord(id);
         //noinspection SimplifiableIfStatement
+        System.out.println(String.valueOf(id));
         if (id == R.id.action_aftoam)
         {
             dictionaryFragment.resetDataSource(source);
