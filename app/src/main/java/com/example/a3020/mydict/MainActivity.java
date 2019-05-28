@@ -111,8 +111,8 @@ public class MainActivity extends AppCompatActivity
             onOptionsItemSelected(menu.findItem(Integer.valueOf(id)));
         else
             {
-                ArrayList<String> source = dbHelper.getWord(R.id.action_entk);
-            dictionaryFragment.resetDataSource(source);
+                ArrayList<String> source = dbHelper.getWord(R.id.action_aftoam);
+                dictionaryFragment.resetDataSource(source);
         }
         return true;
     }
@@ -128,19 +128,19 @@ public class MainActivity extends AppCompatActivity
 
         ArrayList<String> source = dbHelper.getWord(id);
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_entk)
+        if (id == R.id.action_aftoam)
         {
             dictionaryFragment.resetDataSource(source);
              menuSetting.setIcon(getDrawable(R.drawable.aftoam));
         }
-        else if(id == R.id.action_kten)
+        else if(id == R.id.action_amtoaf)
         {
             dictionaryFragment.resetDataSource(source);
             menuSetting.setIcon(getDrawable(R.drawable.amtoaf));
 
         }
      
-        else if(id == R.id.action_ktk)
+        else if(id == R.id.action_aftoaf)
         {
             dictionaryFragment.resetDataSource(source);
             menuSetting.setIcon(getDrawable(R.drawable.aftoaf));

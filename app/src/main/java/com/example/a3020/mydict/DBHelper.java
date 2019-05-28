@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,9 +22,9 @@ public class DBHelper extends SQLiteOpenHelper {
     private String DATABASE_FULLPATH = "";
     public SQLiteDatabase mDB;
 
-    private final String SoToAm = "SoToAm";
-    private final String AmToSo = "AmToSo";
-    private final String AmToAm = "AmToAm";
+    private final String AfToAm = "AfToAm";
+    private final String AmToAf = "AmToAf";
+    private final String AfToAf = "AfToAf";
     private final String bookmark = "bookmark";
 
     private final String key = "key";
@@ -89,7 +91,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<String> getWord(int dicType) {
         String tableName = getTableName(dicType);
 
-        String q = "select * from " + AmToSo;
+        System.out.println(tableName);
+
+        String q = "SELECT * FROM " + tableName;
         Cursor result = mDB.rawQuery(q, null);
         ArrayList<String> source = new ArrayList<String>();
         while (result.moveToNext()) {
@@ -168,14 +172,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public String getTableName(int dictType) {
         String tableName = "";
-        if (dictType == R.id.action_entk) {
-            tableName = AmToSo;
+        if (dictType == R.id.action_aftoam) {
+            tableName = AfToAm;
 
-        } else if (dictType == R.id.action_kten) {
+        } else if (dictType == R.id.action_amtoaf) {
 
-            tableName = SoToAm;
-        } else if (dictType == R.id.action_ktk) {
-            tableName = AmToAm;
+            tableName = AmToAf;
+        } else if (dictType == R.id.action_aftoaf) {
+            tableName = AfToAf;
 
         }
 

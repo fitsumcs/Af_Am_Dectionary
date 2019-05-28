@@ -9,19 +9,19 @@
         app:showAsAction="always">
         <menu>
             <item
-                android:id="@+id/action_entk"
+                android:id="@+id/action_aftoam"
                 android:orderInCategory="100"
                 android:icon="@drawable/aftoam"
                 android:title="Afar - Amaharic"
                 app:showAsAction="never" />
             <item
-                android:id="@+id/action_kten"
+                android:id="@+id/action_amtoaf"
                 android:icon="@drawable/amtoaf"
                 android:title="Amaharic - Afar"
                 android:orderInCategory="100"
                 app:showAsAction="never" />
             <item
-                android:id="@+id/action_ktk"
+                android:id="@+id/action_aftoaf"
                 android:icon="@drawable/aftoaf"
                 android:title="Afar - Afar"
                 android:orderInCategory="100"
