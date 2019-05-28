@@ -171,6 +171,19 @@ public class MainActivity extends AppCompatActivity
 
 
         }
+        if (id == R.id.nav_home)
+        {
+            String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
+
+
+            if (!activefragmant.equals(DictionaryFragment.class.getSimpleName()))
+            {
+                goToFragmat(dictionaryFragment,false);
+
+            }
+
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
