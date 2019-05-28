@@ -31,7 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mcContext = context;
-        DATABASE_LOCATION = "data/data" + mcContext.getPackageName() + "/database/";
+        DATABASE_LOCATION = "data/data/" + mcContext.getPackageName() + "/database/";
         DATABASE_FULLPATH = DATABASE_LOCATION + DATABASE_NAME;
 
         if (!isExistingDB()) {
