@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity
         {
             menuSetting.setVisible(false);
             toolbar.findViewById(R.id.edit_search).setVisibility(View.GONE);
-            toolbar.setTitle("Rating");
+            toolbar.setTitle("Rate Us");
 
         }
         else if (activefragmant.equals(BookmarkFragment.class.getSimpleName()))
