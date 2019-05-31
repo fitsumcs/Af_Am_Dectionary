@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity
     MenuItem menuSetting;
     DictionaryFragment dictionaryFragment;
     BookmarkFragment bookmarkFragment;
+    AboutFragmant aboutFragmant;
     DetailFragment detailFragment;
     Toolbar toolbar;
     DBHelper dbHelper;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity
         // the navigato of fragmant
         dictionaryFragment = new DictionaryFragment();
         bookmarkFragment = new BookmarkFragment();
+        aboutFragmant = new AboutFragmant();
         goToFragmat(dictionaryFragment,true);
 
         dictionaryFragment.setOnFragmentListener(new FragmentListner() {
@@ -60,6 +62,13 @@ public class MainActivity extends AppCompatActivity
             }
         });
         bookmarkFragment.setOnFragmentListener(new FragmentListner() {
+            @Override
+            public void onItemClick(String value) {
+
+                goToFragmat(DetailFragment.getNewInstance(value),false);
+            }
+        });
+        aboutFragmant.setOnFragmentListener(new FragmentListner() {
             @Override
             public void onItemClick(String value) {
 
@@ -184,6 +193,19 @@ public class MainActivity extends AppCompatActivity
 
 
         }
+        if (id == R.id.nav_about)
+        {
+            String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
+
+
+            if (!activefragmant.equals(AboutFragmant.class.getSimpleName()))
+            {
+                goToFragmat(aboutFragmant,false);
+
+            }
+
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -209,6 +231,13 @@ public class MainActivity extends AppCompatActivity
             menuSetting.setVisible(false);
             toolbar.findViewById(R.id.edit_search).setVisibility(View.GONE);
             toolbar.setTitle("Bookmark");
+        }
+        else if(activefragmant.equals(AboutFragmant.class.getSimpleName()))
+        {
+            menuSetting.setVisible(false);
+            toolbar.findViewById(R.id.edit_search).setVisibility(View.GONE);
+            toolbar.setTitle("About");
+
         }
         else
         {
