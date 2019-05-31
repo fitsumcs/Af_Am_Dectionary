@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="#454545"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
@@ -12,12 +14,16 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true">
-            <ImageView
-                android:layout_width="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView5"
                 android:src="@drawable/fa"
-                android:layout_gravity="center"/>
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"/>
 
             <TextView
                 android:id="@+id/textView5"
@@ -26,6 +32,7 @@
                 android:fontFamily="monospace"
                 android:gravity="center"
                 android:text="\n\nDeveloped by Fitsum Alemu \n\n Contact : fitsumcs@gmail.com \n\nCopyright \u00A9 2017"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
         </LinearLayout>
     </RelativeLayout>
