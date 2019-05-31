@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_weight="1"
-    android:orientation="vertical" >
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView5"
+                android:src="@drawable/fa"
+                android:layout_gravity="center"/>
 
-    <TextView
-        android:id="@+id/textViewNombreVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_alignLeft="@+id/imageViewLogo"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/imageViewLogo"
-        android:lines="2"
-        android:scrollHorizontally="false"
-        android:text="Devloped By Fitsum Alemu \n @2017"
-        android:textAppearance="?android:attr/textAppearance"
-        android:textColor="@android:color/black"
-        android:textColorLink="@android:color/white"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp" />
-
-    <ImageView
-        android:id="@+id/imageViewLogo"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/textViewNombreVideo"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="4dp"
-        android:src="@drawable/fa"
-        android:adjustViewBounds="true"
-        />
-
-</RelativeLayout>
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="472dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:text="\n\nDeveloped by Fitsum Alemu \n\n Contact : fitsumcs@gmail.com \n\nCopyright \u00A9 2017"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
