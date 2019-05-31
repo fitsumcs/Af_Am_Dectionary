@@ -17,10 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:gravity="center_horizontal"
+        android:layout_marginLeft="0dp"
         android:text="We hope you have liked our application "
         android:textSize="20sp"
         android:textStyle="italic" />
+
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -35,6 +36,14 @@
         android:stepSize="1"
 
         />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:hint="Tell us what antting you want us to improve"
+        android:gravity="top"
+        />
 
     <Button
         android:id="@+id/button"
@@ -44,8 +53,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="50dp"
         android:background="#808080"
-
-        android:text="Submit"
+        android:text="Send feedback"
         android:textColor="@android:color/background_light"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
