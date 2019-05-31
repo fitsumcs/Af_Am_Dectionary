@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity
     DictionaryFragment dictionaryFragment;
     BookmarkFragment bookmarkFragment;
     AboutFragmant aboutFragmant;
+    RatingFragmant ratingFragmant;
     DetailFragment detailFragment;
     Toolbar toolbar;
     DBHelper dbHelper;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity
         dictionaryFragment = new DictionaryFragment();
         bookmarkFragment = new BookmarkFragment();
         aboutFragmant = new AboutFragmant();
+        ratingFragmant = new RatingFragmant();
         goToFragmat(dictionaryFragment,true);
 
         dictionaryFragment.setOnFragmentListener(new FragmentListner() {
@@ -69,6 +71,13 @@ public class MainActivity extends AppCompatActivity
             }
         });
         aboutFragmant.setOnFragmentListener(new FragmentListner() {
+            @Override
+            public void onItemClick(String value) {
+
+                goToFragmat(DetailFragment.getNewInstance(value),false);
+            }
+        });
+        ratingFragmant.setOnFragmentListener(new FragmentListner() {
             @Override
             public void onItemClick(String value) {
 
@@ -206,6 +215,19 @@ public class MainActivity extends AppCompatActivity
 
 
         }
+        if (id == R.id.nav_rate)
+        {
+            String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
+
+
+            if (!activefragmant.equals(RatingFragmant.class.getSimpleName()))
+            {
+                goToFragmat(ratingFragmant,false);
+
+            }
+
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -218,7 +240,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         if (!isTop)
             fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+            fragmentTransaction.commit();
 
 
     }
@@ -226,7 +248,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
-        if (activefragmant.equals(BookmarkFragment.class.getSimpleName()))
+        if(activefragmant.equals(RatingFragmant.class.getSimpleName()))
+        {
+            menuSetting.setVisible(false);
+            toolbar.findViewById(R.id.edit_search).setVisibility(View.GONE);
+            toolbar.setTitle("Rating");
+
+        }
+        else if (activefragmant.equals(BookmarkFragment.class.getSimpleName()))
         {
             menuSetting.setVisible(false);
             toolbar.findViewById(R.id.edit_search).setVisibility(View.GONE);
@@ -239,11 +268,12 @@ public class MainActivity extends AppCompatActivity
             toolbar.setTitle("About");
 
         }
-        else
+
+        else if(activefragmant.equals(DictionaryFragment.class.getSimpleName()))
         {
             menuSetting.setVisible(true);
             toolbar.findViewById(R.id.edit_search).setVisibility(View.VISIBLE);
-            toolbar.setTitle("");
+            //toolbar.setTitle("");
 
         }
           return true;
