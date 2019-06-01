@@ -141,6 +141,8 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        //allaows for swthing menu
+        if(R.id.action_settings==id)return true;
          // Save the state
         //SaveState.saveState(this,"dict_type", String.valueOf(id));
 

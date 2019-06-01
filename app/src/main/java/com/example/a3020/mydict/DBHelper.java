@@ -2,6 +2,7 @@ package com.example.a3020.mydict;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -125,26 +126,57 @@ public class DBHelper extends SQLiteOpenHelper {
         return source;
 
     }
+    // Inserting to bookmark
+    public void addBookmark(Word word)
+    {
+        try
+        {
+            String query = "INSERT INTO  bookmark(["+key+"],["+value+"]) VALUES (?,?); ";
+            mDB.execSQL(query,new Object[]{word.key,word.value});
 
-    public void addBookmark() {
+        }
+        catch (SQLException sq)
+        {
+
+        }
+    }
+
+    public void removeBookmark(Word word)
+    {
+        try
+        {
+            String query = "DELETE FROM  bookmark WHERE ["+key+"]=? AND ["+value+"]=? ; ";
+            mDB.execSQL(query,new Object[]{word.key,word.value});
+
+        }
+        catch (SQLException sq)
+        {
+
+
+        }
 
 
     }
 
-    public void removeBookmark() {
+    public boolean isWordMark(Word word)
+    {
+        String query = "select * from  bookmark where [key] =  ? and value= ? ";
+        Cursor result = mDB.rawQuery(query,new String[]{word.key,word.value});
 
-
+        return result.getCount()>0;
     }
 
-    public boolean isWordMark(Word word) {
+    public Word getWordFormBookMark(String key)
+    {
+        Word source = new Word();
+        String query = "select * from  bookmark where [key] =  [''] ";
+        Cursor result = mDB.rawQuery(query,null);
+        while (result.moveToNext()) {
+            source.key = result.getString(result.getColumnIndex(this.key));
+            source.value = result.getString(result.getColumnIndex(this.value));
+        }
 
-        return true;
-    }
-
-    public Word getWordFormBookMark(String key) {
-        Word word = new Word();
-
-        return word;
+           return source;
     }
 
 
@@ -156,7 +188,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Word word = new Word();
         while (result.moveToNext()) {
             word.key = result.getString(result.getColumnIndex(this.key));
-            word.value = result.getString(result.getColumnIndex(value));
+            word.value = result.getString(result.getColumnIndex(this.value));
         }
 
         return word;

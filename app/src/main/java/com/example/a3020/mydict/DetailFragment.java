@@ -20,6 +20,8 @@ public class DetailFragment extends Fragment {
     private TextView tvWord;
     private ImageButton btVol, btBookmark;
     private WebView bttranslate;
+    private DBHelper dbHelper;
+    private int dicType;
 
 
 
@@ -28,10 +30,12 @@ public class DetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static DetailFragment getNewInstance(String value)
+    public static DetailFragment getNewInstance(String value , DBHelper dbHelper , int dicType)
     {
         DetailFragment detailFragment = new DetailFragment();
         detailFragment.value = value;
+        detailFragment.dbHelper = dbHelper;
+        detailFragment.dicType = dicType;
         return detailFragment;
 
     }
@@ -58,6 +62,11 @@ public class DetailFragment extends Fragment {
         btVol = (ImageButton) view.findViewById(R.id.btnVol);
         btBookmark = (ImageButton) view.findViewById(R.id.btnBookmark);
         btBookmark.setTag(0);
+
+        Word word = dbHelper.getWord(value,dicType);
+        tvWord.setText(word.key);
+        bttranslate.loadDataWithBaseURL(null,word.value, "text.html","utf-8" ,null);
+        Word book = dbHelper.getWordFormBookMark(value);
 
         btBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
