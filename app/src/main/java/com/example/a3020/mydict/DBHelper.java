@@ -6,6 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.util.LogPrinter;
 import android.widget.Toast;
 
 import java.io.File;
@@ -28,8 +29,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private final String AfToAf = "AfToAf";
     private final String bookmark = "bookmark";
 
-    private final String key = "key";
-    private final String value = "value";
+    private final String COL_KEY = "key";
+    private final String COL_VALUE = "value";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -108,7 +109,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor result = mDB.rawQuery(q, null);
         ArrayList<String> source = new ArrayList<String>();
         while (result.moveToNext()) {
-            source.add(result.getString(result.getColumnIndex(key)));
+            source.add(result.getString(result.getColumnIndex(COL_KEY)));
 
         }
 
@@ -131,7 +132,7 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         try
         {
-            String query = "INSERT INTO  bookmark(["+key+"],["+value+"]) VALUES (?,?); ";
+            String query = "INSERT INTO  bookmark(["+COL_KEY+"],["+COL_VALUE+"]) VALUES (?,?); ";
             mDB.execSQL(query,new Object[]{word.key,word.value});
 
         }
@@ -145,7 +146,7 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         try
         {
-            String query = "DELETE FROM  bookmark WHERE ["+key+"]=? AND ["+value+"]=? ; ";
+            String query = "DELETE FROM  bookmark WHERE ["+COL_KEY+"]=? AND ["+COL_VALUE+"]=? ; ";
             mDB.execSQL(query,new Object[]{word.key,word.value});
 
         }
@@ -168,28 +169,33 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Word getWordFormBookMark(String key)
     {
-        Word source = new Word();
+       Word word = null;
         String query = "select * from  bookmark where [key] =  (?) ";
-        Cursor result = mDB.rawQuery(query,null);
+        Cursor result = mDB.rawQuery(query,new String[]{key});
         while (result.moveToNext()) {
-            source.key = result.getString(result.getColumnIndex(this.key));
-            source.value = result.getString(result.getColumnIndex(this.value));
+            word = new Word();
+            word.key = result.getString(result.getColumnIndex(COL_KEY));
+            word.value = result.getString(result.getColumnIndex(COL_VALUE));
         }
 
-           return source;
+           return word;
     }
 
 
     public Word getWord(String key, int dicType) {
         String tableName = getTableName(dicType);
 
-        String q = "select * from " +tableName+ " where [key] =  (?) ";
+        Log.e("Table Name ", tableName);
+
+        String q = "SELECT * FROM " +tableName+ " WHERE [key] =  (?) ";
         Cursor result = mDB.rawQuery(q, new String[]{key});
         Word word = new Word();
         while (result.moveToNext()) {
-            word.key = result.getString(result.getColumnIndex(this.key));
-            word.value = result.getString(result.getColumnIndex(this.value));
+            word.key = result.getString(result.getColumnIndex(COL_KEY));
+            word.value = result.getString(result.getColumnIndex(COL_VALUE));
+
         }
+
 
         return word;
 

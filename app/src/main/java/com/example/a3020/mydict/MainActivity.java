@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -60,9 +61,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(String value) {
                 String id= SaveState.getState(MainActivity.this,"dict_type");
-                int dictType = id==null?R.id.action_aftoaf : Integer.valueOf(id);
+                int dictType = id==null?R.id.action_aftoam : Integer.valueOf(id);
 
                  goToFragmat(DetailFragment.getNewInstance(value,dbHelper,dictType),false);
+
+
             }
         });
         bookmarkFragment.setOnFragmentListener(new FragmentListner() {
@@ -75,26 +78,7 @@ public class MainActivity extends AppCompatActivity
                 goToFragmat(DetailFragment.getNewInstance(value,dbHelper,dictType),false);
             }
         });
-        aboutFragmant.setOnFragmentListener(new FragmentListner() {
-            @Override
-            public void onItemClick(String value) {
 
-                String id= SaveState.getState(MainActivity.this,"dict_type");
-                int dictType = id==null?R.id.action_aftoaf : Integer.valueOf(id);
-
-                goToFragmat(DetailFragment.getNewInstance(value,dbHelper,dictType),false);
-            }
-        });
-        ratingFragmant.setOnFragmentListener(new FragmentListner() {
-            @Override
-            public void onItemClick(String value) {
-
-                String id= SaveState.getState(MainActivity.this,"dict_type");
-                int dictType = id==null?R.id.action_aftoaf : Integer.valueOf(id);
-
-                goToFragmat(DetailFragment.getNewInstance(value,dbHelper,dictType),false);
-            }
-        });
 
         EditText edit_search = findViewById(R.id.edit_search);
         edit_search.addTextChangedListener(new TextWatcher() {

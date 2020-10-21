@@ -65,16 +65,16 @@ public class DetailFragment extends Fragment {
         btBookmark.setTag(0);
 
         Word word = dbHelper.getWord(value,dicType);
-        if(word==null)
-        {
-            Log.e("Test Word Exits ::: ", "Empty object");
-        }
-
-
 
         tvWord.setText(word.key);
         bttranslate.loadDataWithBaseURL(null,word.value, "text.html","utf-8" ,null);
         Word book = dbHelper.getWordFormBookMark(value);
+
+        int isMark = book ==null?0:1;
+        btBookmark.setTag(isMark);
+
+        int icon = book ==null?R.drawable.ic_bookmark_border:R.drawable.ic_bookmark_fill;
+        btBookmark.setImageResource(icon);
 
         btBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
