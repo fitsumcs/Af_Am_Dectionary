@@ -185,7 +185,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Word getWord(String key, int dicType) {
         String tableName = getTableName(dicType);
 
-        Log.e("Table Name ", tableName);
+
 
         String q = "SELECT * FROM " +tableName+ " WHERE [key] =  (?) ";
         Cursor result = mDB.rawQuery(q, new String[]{key});
