@@ -59,29 +59,40 @@ public class MainActivity extends AppCompatActivity
         dictionaryFragment.setOnFragmentListener(new FragmentListner() {
             @Override
             public void onItemClick(String value) {
+                String id= SaveState.getState(MainActivity.this,"dict_type");
+                int dictType = id==null?R.id.action_aftoaf : Integer.valueOf(id);
 
-                 goToFragmat(DetailFragment.getNewInstance(value),false);
+                 goToFragmat(DetailFragment.getNewInstance(value,dbHelper,dictType),false);
             }
         });
         bookmarkFragment.setOnFragmentListener(new FragmentListner() {
             @Override
             public void onItemClick(String value) {
 
-                goToFragmat(DetailFragment.getNewInstance(value),false);
+                String id= SaveState.getState(MainActivity.this,"dict_type");
+                int dictType = id==null?R.id.action_aftoaf : Integer.valueOf(id);
+
+                goToFragmat(DetailFragment.getNewInstance(value,dbHelper,dictType),false);
             }
         });
         aboutFragmant.setOnFragmentListener(new FragmentListner() {
             @Override
             public void onItemClick(String value) {
 
-                goToFragmat(DetailFragment.getNewInstance(value),false);
+                String id= SaveState.getState(MainActivity.this,"dict_type");
+                int dictType = id==null?R.id.action_aftoaf : Integer.valueOf(id);
+
+                goToFragmat(DetailFragment.getNewInstance(value,dbHelper,dictType),false);
             }
         });
         ratingFragmant.setOnFragmentListener(new FragmentListner() {
             @Override
             public void onItemClick(String value) {
 
-                goToFragmat(DetailFragment.getNewInstance(value),false);
+                String id= SaveState.getState(MainActivity.this,"dict_type");
+                int dictType = id==null?R.id.action_aftoaf : Integer.valueOf(id);
+
+                goToFragmat(DetailFragment.getNewInstance(value,dbHelper,dictType),false);
             }
         });
 

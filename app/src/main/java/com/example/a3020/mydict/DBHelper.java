@@ -169,7 +169,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Word getWordFormBookMark(String key)
     {
         Word source = new Word();
-        String query = "select * from  bookmark where [key] =  [''] ";
+        String query = "select * from  bookmark where [key] =  (?) ";
         Cursor result = mDB.rawQuery(query,null);
         while (result.moveToNext()) {
             source.key = result.getString(result.getColumnIndex(this.key));
@@ -183,7 +183,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Word getWord(String key, int dicType) {
         String tableName = getTableName(dicType);
 
-        String q = "select * from " + tableName + "where [key] =  (?) ";
+        String q = "select * from " +tableName+ " where [key] =  (?) ";
         Cursor result = mDB.rawQuery(q, new String[]{key});
         Word word = new Word();
         while (result.moveToNext()) {
