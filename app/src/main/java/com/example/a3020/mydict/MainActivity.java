@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(String value) {
 
                 String id= SaveState.getState(MainActivity.this,"dict_type");
-                int dictType = id==null?R.id.action_aftoaf : Integer.valueOf(id);
+                int dictType = id==null?R.id.action_aftoam : Integer.valueOf(id);
 
                 goToFragmat(DetailFragment.getNewInstance(value,dbHelper,dictType),false);
             }
@@ -158,12 +158,7 @@ public class MainActivity extends AppCompatActivity
 
         }
      
-        else if(id == R.id.action_aftoaf)
-        {
-            dictionaryFragment.resetDataSource(source);
-            menuSetting.setIcon(getDrawable(R.drawable.aftoaf));
 
-        }
 
 
         return super.onOptionsItemSelected(item);

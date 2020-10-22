@@ -226,9 +226,6 @@ public class DBHelper extends SQLiteOpenHelper {
         } else if (dictType == R.id.action_amtoaf) {
 
             tableName = AmToAf;
-        } else if (dictType == R.id.action_aftoaf) {
-            tableName = AfToAf;
-
         }
 
 
