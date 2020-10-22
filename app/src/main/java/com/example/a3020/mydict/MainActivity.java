@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
 
         // the navigato of fragmant
         dictionaryFragment = new DictionaryFragment();
-        bookmarkFragment = new BookmarkFragment();
+        bookmarkFragment = BookmarkFragment.getInstance(dbHelper);
         aboutFragmant = new AboutFragmant();
         ratingFragmant = new RatingFragmant();
         goToFragmat(dictionaryFragment,true);

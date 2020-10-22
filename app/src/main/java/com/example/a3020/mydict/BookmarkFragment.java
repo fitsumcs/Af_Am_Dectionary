@@ -19,11 +19,20 @@ import android.widget.Toast;
 public class BookmarkFragment extends Fragment {
     private FragmentListner listener;
     //private String value = "Helllow";
+    private DBHelper dbHelper;
 
     public BookmarkFragment() {
         // Required empty public constructor
     }
 
+    public static BookmarkFragment getInstance(DBHelper dbHelper){
+
+        BookmarkFragment bookmarkFragment = new BookmarkFragment();
+        bookmarkFragment.dbHelper = dbHelper;
+
+        return  bookmarkFragment;
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +53,7 @@ public class BookmarkFragment extends Fragment {
            setHasOptionsMenu(true);
 
         ListView bookmarkList = (ListView) view.findViewById(R.id.bookmarkList);
-        final BookmarkAdapter adapter = new BookmarkAdapter(getActivity(),getListOfWords() );
+        final BookmarkAdapter adapter = new BookmarkAdapter(getActivity(),dbHelper.getAllWordFromBookMark() );
         bookmarkList.setAdapter(adapter);
         adapter.setOnItemClick(new ListItemListner() {
             @Override
@@ -81,46 +90,7 @@ public class BookmarkFragment extends Fragment {
 
     }
 
-    String[]  getListOfWords()
-    {
-        String[] source =new String[] {
-                "a",
-                "abandon",
-                "ablity",
-                "able",
-                "about",
-                "above",
-                "abroad",
-                "after",
-                "afterwards",
-                "again",
-                "against",
-                "all",
-                "almost",
-                "alone",
-                "along",
-                "already",
-                "also",
-                "although",
-                "always",
-                "am",
-                "among",
-                "amongst",
-                "amoungst",
-                "amount",
-                "an",
-                "and",
-                "another",
-                "any",
-                "anyhow",
-                "anyone",
-                "anything",
 
-
-        };
-
-        return source;
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

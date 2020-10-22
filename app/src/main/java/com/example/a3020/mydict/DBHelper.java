@@ -119,9 +119,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     // All about book mark Not Done !!!!!!!!!!!!!!!!!!!!!!!!
-    public ArrayList<String> getAllWordFromBookMark(String key) {
+    public ArrayList<String> getAllWordFromBookMark() {
 
         ArrayList<String> source = new ArrayList<String>();
+        String query = "select * from  bookmark ";
+        Cursor result = mDB.rawQuery(query,null);
+        while (result.moveToNext()) {
+
+            source.add(result.getString(result.getColumnIndex(COL_KEY)));
+        }
 
 
         return source;
