@@ -26,7 +26,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private final String AfToAm = "AfToAm";
     private final String AmToAf = "AmToAf";
-    private final String AfToAf = "AfToAf";
     private final String bookmark = "bookmark";
 
     private final String COL_KEY = "key";
@@ -102,8 +101,7 @@ public class DBHelper extends SQLiteOpenHelper {
         {
             q = "SELECT * FROM  " + AmToAf;
         }
-        else
-           q = "SELECT * FROM " + AfToAf;
+
 
 
         Cursor result = mDB.rawQuery(q, null);
@@ -154,6 +152,22 @@ public class DBHelper extends SQLiteOpenHelper {
         {
             String query = "DELETE FROM  bookmark WHERE ["+COL_KEY+"]=? AND ["+COL_VALUE+"]=? ; ";
             mDB.execSQL(query,new Object[]{word.key,word.value});
+
+        }
+        catch (SQLException sq)
+        {
+
+
+        }
+
+
+    }
+    public void clearBookmark()
+    {
+        try
+        {
+            String query = "DELETE FROM  bookmark ";
+            mDB.execSQL(query);
 
         }
         catch (SQLException sq)

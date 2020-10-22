@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -137,7 +138,11 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        SaveState.saveState(this,"dict_type",String.valueOf(id));
+        if(id!=R.id.action_clear)
+        {
+            SaveState.saveState(this,"dict_type",String.valueOf(id));
+        }
+
         //allaows for swthing menu
         if(R.id.action_settings==id)return true;
          // Save the state
@@ -157,6 +162,7 @@ public class MainActivity extends AppCompatActivity
             menuSetting.setIcon(getDrawable(R.drawable.amtoaf));
 
         }
+
      
 
 
