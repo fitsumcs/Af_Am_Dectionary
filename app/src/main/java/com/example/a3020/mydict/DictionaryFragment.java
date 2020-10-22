@@ -68,14 +68,14 @@ public class DictionaryFragment extends Fragment {
     }
 
     public void filterValue(String value) {
-        //adapter.getFilter().filter(value);
-        int size = adapter.getCount();
-        for (int i = 0; i < size; i++) {
-            if (adapter.getItem(i).startsWith(value)) {
-                dictList.setSelection(i);
-                break;
-            }
-        }
+        adapter.getFilter().filter(value);
+//        int size = adapter.getCount();
+//        for (int i = 0; i < size; i++) {
+//            if (adapter.getItem(i).startsWith(value)) {
+//                dictList.setSelection(i);
+//                break;
+//            }
+//        }
 
     }
 
