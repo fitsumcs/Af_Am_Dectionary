@@ -64,10 +64,10 @@ public class DetailFragment extends Fragment {
         btBookmark = (ImageButton) view.findViewById(R.id.btnBookmark);
         btBookmark.setTag(0);
 
-        Word word = dbHelper.getWord(value,dicType);
+        final Word word = dbHelper.getWord(value,dicType);
 
         tvWord.setText(word.key);
-        bttranslate.loadDataWithBaseURL(null,word.value, "text.html","utf-8" ,null);
+        bttranslate.loadDataWithBaseURL(null,word.value, "text/html; charset=utf-8","UTF-8" ,null);
         Word book = dbHelper.getWordFormBookMark(value);
 
         int isMark = book ==null?0:1;
@@ -85,6 +85,7 @@ public class DetailFragment extends Fragment {
               {
                   btBookmark.setImageResource(R.drawable.ic_bookmark_fill);
                   btBookmark.setTag(1);
+                  dbHelper.addBookmark(word);
 
 
               }
@@ -92,6 +93,7 @@ public class DetailFragment extends Fragment {
               {
                   btBookmark.setImageResource(R.drawable.ic_bookmark_border);
                   btBookmark.setTag(0);
+                  dbHelper.removeBookmark(word);
 
               }
             }
