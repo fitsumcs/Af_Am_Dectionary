@@ -48,6 +48,7 @@ public class DictionaryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         dictList = view.findViewById(R.id.dictionaryList);
+        dictList.setTextFilterEnabled(true);
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, mSource);
         dictList.setAdapter(adapter);
         dictList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,7 +69,8 @@ public class DictionaryFragment extends Fragment {
     }
 
     public void filterValue(String value) {
-        adapter.getFilter().filter(value);
+       adapter.getFilter().filter(value);
+       adapter.notifyDataSetChanged();
 //        int size = adapter.getCount();
 //        for (int i = 0; i < size; i++) {
 //            if (adapter.getItem(i).startsWith(value)) {

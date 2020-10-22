@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity
                 String id= SaveState.getState(MainActivity.this,"dict_type");
                 int dictType = id==null?R.id.action_aftoam : Integer.valueOf(id);
 
+
                  goToFragmat(DetailFragment.getNewInstance(value,dbHelper,dictType),false);
 
 
@@ -81,26 +83,24 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        EditText edit_search = findViewById(R.id.edit_search);
-        edit_search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+       SearchView edit_search = (SearchView) findViewById(R.id.edit_search);
 
-            }
+       edit_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+           @Override
+           public boolean onQueryTextSubmit(String query) {
+               dictionaryFragment.filterValue(query);
+               return false;
+           }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+           @Override
+           public boolean onQueryTextChange(String newText) {
+               dictionaryFragment.filterValue(newText);
+               return false;
+           }
+       });
 
-                dictionaryFragment.filterValue(s.toString());
 
 
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
     }
 
     @Override
