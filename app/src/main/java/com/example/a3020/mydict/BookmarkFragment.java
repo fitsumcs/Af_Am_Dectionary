@@ -15,18 +15,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
-public class BookmarkFragment extends Fragment {
+public class BookmarkFragment extends Fragment implements SearchView.OnQueryTextListener{
     private FragmentListner listener;
     //private String value = "Helllow";
     private DBHelper dbHelper;
     ListView bookmarkList;
     BookmarkAdapter adapter;
+    SearchView editsearch;
     public BookmarkFragment() {
         // Required empty public constructor
     }
@@ -60,6 +62,9 @@ public class BookmarkFragment extends Fragment {
 
 
         bookmarkList = (ListView) view.findViewById(R.id.bookmarkList);
+        // Locate the EditText in listview_main.xml
+        editsearch = (SearchView) view.findViewById(R.id.search);
+        editsearch.setOnQueryTextListener(this);
         adapter = new BookmarkAdapter(getActivity(),dbHelper.getAllWordFromBookMark() );
         bookmarkList.setAdapter(adapter);
         adapter.setOnItemClick(new ListItemListner() {
@@ -84,6 +89,8 @@ public class BookmarkFragment extends Fragment {
                 dbHelper.removeBookmark(word);
 
                 adapter.notifyDataSetChanged();
+
+
             }
         });
     }
@@ -128,4 +135,16 @@ public class BookmarkFragment extends Fragment {
     }
 
 
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+
+        String text = s;
+        adapter.filter(text);
+        return false;
+    }
 }

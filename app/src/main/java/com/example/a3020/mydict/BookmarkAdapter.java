@@ -11,18 +11,23 @@ import android.widget.TextView;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class BookmarkAdapter extends BaseAdapter
 {
     private ListItemListner listner;
     private ListItemListner listnerBtnDelete;
     Context mContext;
-    ArrayList<String> mSource;
+    ArrayList<Word> mSource;
+    private ArrayList<Word> arraylist;
 
-    public BookmarkAdapter(Context context,ArrayList<String> source)
+    public BookmarkAdapter(Context context,ArrayList<Word> source)
     {
          this.mContext = context;
          this.mSource = source;
+        this.arraylist = new ArrayList<Word>();
+        this.arraylist.addAll(mSource);
+
 
     }
 
@@ -63,7 +68,7 @@ public class BookmarkAdapter extends BaseAdapter
 
         }
 
-         viewHolder.textView.setText(mSource.get(position));
+         viewHolder.textView.setText(mSource.get(position).getKey());
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +96,21 @@ public class BookmarkAdapter extends BaseAdapter
         mSource.remove(position);
 
     }
-
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        mSource.clear();
+        if (charText.length() == 0) {
+            mSource.addAll(arraylist);
+        } else {
+            for (Word wp : arraylist) {
+                if (wp.getKey().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    mSource.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 
 
 

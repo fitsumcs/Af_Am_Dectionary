@@ -63,7 +63,7 @@ public class DetailFragment extends Fragment {
         btBookmark = (ImageButton) view.findViewById(R.id.btnBookmark);
         btBookmark.setTag(0);
 
-        final Word word = dbHelper.getWord(value,dicType);
+        final Word word = dbHelper.getWord(value);
 
         tvWord.setText(word.key);
         bttranslate.loadDataWithBaseURL(null,word.value, "text/html; charset=utf-8","UTF-8" ,null);

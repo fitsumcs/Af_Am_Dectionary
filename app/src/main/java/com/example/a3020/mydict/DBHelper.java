@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private String DATABASE_FULLPATH = "";
     public SQLiteDatabase mDB;
 
-    private final String AfToAm = "AfToAm";
+    private final String EnToAf = "AfToAm";
     private final String bookmark = "bookmark";
 
     private final String COL_KEY = "key";
@@ -90,7 +90,7 @@ public class DBHelper extends SQLiteOpenHelper {
     // LIst of word from db
     public ArrayList<String> getWord() {
 
-        String q = "SELECT * FROM " + AfToAm;
+        String q = "SELECT * FROM " + EnToAf;
 
         Cursor result = mDB.rawQuery(q, null);
         ArrayList<String> source = new ArrayList<String>();
@@ -105,14 +105,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     // All about book mark Not Done !!!!!!!!!!!!!!!!!!!!!!!!
-    public ArrayList<String> getAllWordFromBookMark() {
+    public ArrayList<Word> getAllWordFromBookMark() {
 
-        ArrayList<String> source = new ArrayList<String>();
+        ArrayList<Word> source = new ArrayList<Word>();
         String query = "select * from  bookmark ";
         Cursor result = mDB.rawQuery(query,null);
         while (result.moveToNext()) {
 
-            source.add(result.getString(result.getColumnIndex(COL_KEY)));
+            Word word = new Word(result.getString(result.getColumnIndex(COL_KEY)) , result.getString(result.getColumnIndex(COL_VALUE)));
+            source.add(word);
         }
 
 
@@ -190,9 +191,9 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public Word getWord(String key, int dicType) {
+    public Word getWord(String key) {
 
-        String q = "SELECT * FROM " +AfToAm + " WHERE [key] =  (?) ";
+        String q = "SELECT * FROM " +EnToAf + " WHERE [key] =  (?) ";
         Cursor result = mDB.rawQuery(q, new String[]{key});
         Word word = new Word();
         while (result.moveToNext()) {
