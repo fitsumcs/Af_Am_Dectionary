@@ -44,11 +44,11 @@ public class MainActivity extends AppCompatActivity
 
 
         // the navigato of fragmant
-        dictionaryFragment = new DictionaryFragment();
+        dictionaryFragment = DictionaryFragment.getInstance(dbHelper);
         bookmarkFragment = BookmarkFragment.getInstance(dbHelper);
         aboutFragmant = new AboutFragmant();
         ratingFragmant = new RatingFragmant();
-        goToFragmat(ratingFragmant);
+        goToFragmat(dictionaryFragment);
 
 
 //
@@ -93,12 +93,7 @@ public class MainActivity extends AppCompatActivity
 
 //    @Override
 //    public void onBackPressed() {
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
 //            super.onBackPressed();
-//        }
 //    }
 
     @Override

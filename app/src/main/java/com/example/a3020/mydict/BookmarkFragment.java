@@ -60,7 +60,7 @@ public class BookmarkFragment extends Fragment {
 
 
         bookmarkList = (ListView) view.findViewById(R.id.bookmarkList);
-        adapter = new BookmarkAdapter(getActivity(),dbHelper.getWord() );
+        adapter = new BookmarkAdapter(getActivity(),dbHelper.getAllWordFromBookMark() );
         bookmarkList.setAdapter(adapter);
         adapter.setOnItemClick(new ListItemListner() {
             @Override
@@ -107,26 +107,26 @@ public class BookmarkFragment extends Fragment {
     }
 
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_clear,menu);
-        MenuItem item = menu.findItem(R.id.action_clear);
-
-        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                dbHelper.clearBookmark();
-                bookmarkList.setAdapter(null);
-                adapter.notifyDataSetChanged();
-                Toast.makeText(getContext(),"Bookmark Cleared !!",Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-        item.setVisible(true);
-        super.onCreateOptionsMenu(menu, inflater);
-
-
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.menu_clear,menu);
+//        MenuItem item = menu.findItem(R.id.action_clear);
+//
+//        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                dbHelper.clearBookmark();
+//                bookmarkList.setAdapter(null);
+//                adapter.notifyDataSetChanged();
+//                Toast.makeText(getContext(),"Bookmark Cleared !!",Toast.LENGTH_SHORT).show();
+//                return true;
+//            }
+//        });
+//        item.setVisible(true);
+//        super.onCreateOptionsMenu(menu, inflater);
+//
+//
+//    }
 
 
 }

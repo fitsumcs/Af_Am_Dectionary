@@ -7,12 +7,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,18 +25,28 @@ import java.util.ArrayList;
 public class DictionaryFragment extends Fragment {
 
     private FragmentListner listener;
-    ArrayAdapter<String> adapter;
-    ListView dictList;
-    private ArrayList<String> mSource = new ArrayList<String>();
+    private DBHelper dbHelper;
+    ListView dictionaryList;
+    BookmarkAdapter adapter;
+
 
     public DictionaryFragment() {
         // Required empty public constructor
     }
 
+    public static DictionaryFragment getInstance(DBHelper dbHelper){
+
+        DictionaryFragment dictionaryFragment = new DictionaryFragment();
+        dictionaryFragment.dbHelper = dbHelper;
+
+        return  dictionaryFragment;
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
     }
 
@@ -46,41 +61,35 @@ public class DictionaryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        dictList = view.findViewById(R.id.dictionaryList);
-        dictList.setTextFilterEnabled(true);
-        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, mSource);
-        dictList.setAdapter(adapter);
-        dictList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        dictionaryList = (ListView) view.findViewById(R.id.dictionaryList);
+        adapter = new BookmarkAdapter(getActivity(),dbHelper.getWord() );
+        dictionaryList.setAdapter(adapter);
+        adapter.setOnItemClick(new ListItemListner() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (listener != null)
-                    listener.onItemClick(mSource.get(position));
+            public void onItemClick(int position) {
+                if (listener!=null)
+                    listener.onItemClick(String.valueOf(adapter.getItem(position)));
 
             }
         });
+
+
+
+        adapter.setOnItemDeleteClick(new ListItemListner() {
+            @Override
+            public void onItemClick(int postion) {
+                adapter.removeItem(postion);
+
+                TextView textView = (TextView)getActivity().findViewById(R.id.tvWord);
+                Word word = dbHelper.getWordFormBookMark(textView.getText().toString());
+
+                dbHelper.removeBookmark(word);
+
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
-
-    public void resetDataSource(ArrayList<String> source) {
-        mSource = source;
-        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, mSource);
-        dictList.setAdapter(adapter);
-
-    }
-
-    public void filterValue(String value) {
-       adapter.getFilter().filter(value);
-       adapter.notifyDataSetChanged();
-//        int size = adapter.getCount();
-//        for (int i = 0; i < size; i++) {
-//            if (adapter.getItem(i).startsWith(value)) {
-//                dictList.setSelection(i);
-//                break;
-//            }
-//        }
-
-    }
-
-
 
     @Override
     public void onAttach(Context context) {
@@ -99,6 +108,7 @@ public class DictionaryFragment extends Fragment {
         this.listener = listener;
 
     }
+
 
 
 }
