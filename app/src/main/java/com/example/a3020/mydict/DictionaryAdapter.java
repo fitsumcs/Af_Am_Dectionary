@@ -51,8 +51,6 @@ public class DictionaryAdapter extends BaseAdapter {
             viewHolder = new DictionaryAdapter.ViewHolder();
             view = LayoutInflater.from(mContext).inflate(R.layout.dict_layout_item, viewGroup,false);
             viewHolder.textView =  view.findViewById(R.id.tvWord);
-            viewHolder.btnDelete =  view.findViewById(R.id.btnDelete);
-
             view.setTag(viewHolder);
 
         }
@@ -82,14 +80,14 @@ public class DictionaryAdapter extends BaseAdapter {
 
     }
 
+    public void filter(String text) {
 
 
+    }
 
     class  ViewHolder
     {
         TextView textView;
-        ImageView btnDelete;
-
 
     }
     public  void setOnItemClick(ListItemListner listItemListner)

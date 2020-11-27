@@ -16,18 +16,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
-public class DictionaryFragment extends Fragment {
+public class DictionaryFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private FragmentListner listener;
     private DBHelper dbHelper;
     ListView dictionaryList;
     DictionaryAdapter adapter;
+    SearchView editsearch;
 
 
     public DictionaryFragment() {
@@ -64,6 +66,11 @@ public class DictionaryFragment extends Fragment {
 
         dictionaryList = (ListView) view.findViewById(R.id.dictionaryList);
         adapter = new DictionaryAdapter(getActivity(),dbHelper.getWord() );
+
+        // Locate the EditText in listview_main.xml
+        editsearch = (SearchView) view.findViewById(R.id.search);
+        editsearch.setOnQueryTextListener(this);
+
         dictionaryList.setAdapter(adapter);
         adapter.setOnItemClick(new ListItemListner() {
             @Override
@@ -110,5 +117,15 @@ public class DictionaryFragment extends Fragment {
     }
 
 
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
 
+    @Override
+    public boolean onQueryTextChange(String s) {
+        String text =s;
+        adapter.filter(text);
+        return false;
+    }
 }
