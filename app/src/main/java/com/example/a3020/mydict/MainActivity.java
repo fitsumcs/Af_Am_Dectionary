@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -31,16 +32,15 @@ public class MainActivity extends AppCompatActivity
     AboutFragmant aboutFragmant;
     RatingFragmant ratingFragmant;
     DetailFragment detailFragment;
-    Toolbar toolbar;
     DBHelper dbHelper;
+    ArrayList<String> source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dbHelper = new DBHelper(this);
-        setSupportActionBar(toolbar);
-
+        source = dbHelper.getWord();
 
 
         // the navigato of fragmant
@@ -48,42 +48,44 @@ public class MainActivity extends AppCompatActivity
         bookmarkFragment = BookmarkFragment.getInstance(dbHelper);
         aboutFragmant = new AboutFragmant();
         ratingFragmant = new RatingFragmant();
-        goToFragmat(dictionaryFragment,true);
-
-        dictionaryFragment.setOnFragmentListener(new FragmentListner() {
-            @Override
-            public void onItemClick(String value) {
-
-                 goToFragmat(DetailFragment.getNewInstance(value,dbHelper),false);
+        goToFragmat(ratingFragmant);
 
 
-            }
-        });
-        bookmarkFragment.setOnFragmentListener(new FragmentListner() {
-            @Override
-            public void onItemClick(String value) {
+//
+//        dictionaryFragment.setOnFragmentListener(new FragmentListner() {
+//            @Override
+//            public void onItemClick(String value) {
+//
+//                 goToFragmat(DetailFragment.getNewInstance(value,dbHelper),false);
+//
+//
+//            }
+//        });
+//        bookmarkFragment.setOnFragmentListener(new FragmentListner() {
+//            @Override
+//            public void onItemClick(String value) {
+//
+//
+//                goToFragmat(DetailFragment.getNewInstance(value,dbHelper));
+//            }
+//        });
 
 
-                goToFragmat(DetailFragment.getNewInstance(value,dbHelper),false);
-            }
-        });
-
-
-       SearchView edit_search = (SearchView) findViewById(R.id.edit_search);
-
-       edit_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-           @Override
-           public boolean onQueryTextSubmit(String query) {
-               dictionaryFragment.filterValue(query);
-               return false;
-           }
-
-           @Override
-           public boolean onQueryTextChange(String newText) {
-               dictionaryFragment.filterValue(newText);
-               return false;
-           }
-       });
+//       SearchView edit_search = (SearchView) findViewById(R.id.edit_search);
+//
+//       edit_search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//           @Override
+//           public boolean onQueryTextSubmit(String query) {
+//               dictionaryFragment.filterValue(query);
+//               return false;
+//           }
+//
+//           @Override
+//           public boolean onQueryTextChange(String newText) {
+//               dictionaryFragment.filterValue(newText);
+//               return false;
+//           }
+//       });
 
 
 
@@ -101,19 +103,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        menuSetting =  menu.findItem(R.id.action_settings);
-
-       // String id= SaveState.getState(this,"dict_type");
-
-//        if(id!= null)
-//            onOptionsItemSelected(menu.findItem(Integer.valueOf(id)));
-//        else
-//            {
-//                ArrayList<String> source = dbHelper.getWord(R.id.action_aftoam);
-//                dictionaryFragment.resetDataSource(source);
-//        }
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
         return true;
     }
 
@@ -122,83 +113,50 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+        //dictionaryFragment.resetDataSource(source);
         int id = item.getItemId();
 
-        if(id!=R.id.action_clear)
+        if(id==R.id.action_bookmark)
         {
-            //SaveState.saveState(this,"dict_type",String.valueOf(id));
+            goToFragmat(bookmarkFragment);
+        }
+        if(id==R.id.action_aboutUs)
+        {
+            goToFragmat(aboutFragmant);
         }
 
+//        if(id!=R.id.action_clear)
+//        {
+//            //SaveState.saveState(this,"dict_type",String.valueOf(id));
+//        }
+
         //allaows for swthing menu
-        if(R.id.action_settings==id)return true;
+       // if(R.id.action_settings==id)return true;
          // Save the state
         //SaveState.saveState(this,"dict_type", String.valueOf(id));
 
-        ArrayList<String> source = dbHelper.getWord(id);
+       // ArrayList<String> source = dbHelper.getWord(id);
         //noinspection SimplifiableIfStatement
-        System.out.println(String.valueOf(id));
-        if (id == R.id.action_aftoam)
-        {
-            dictionaryFragment.resetDataSource(source);
-             menuSetting.setIcon(getDrawable(R.drawable.aftoam));
-        }
-        else if(id == R.id.action_amtoaf)
-        {
-            dictionaryFragment.resetDataSource(source);
-            menuSetting.setIcon(getDrawable(R.drawable.amtoaf));
-
-        }
-
-     
-
+//        if (id == R.id.action_aftoam)
+//        {
+//            dictionaryFragment.resetDataSource(source);
+//             menuSetting.setIcon(getDrawable(R.drawable.aftoam));
+//        }
+//        else if(id == R.id.action_amtoaf)
+//        {
+//            dictionaryFragment.resetDataSource(source);
+//            menuSetting.setIcon(getDrawable(R.drawable.amtoaf));
+//
+//        }
 
 
         return super.onOptionsItemSelected(item);
     }
 
-    void  goToFragmat(Fragment fragment, boolean isTop)
-    {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction  fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        if (!isTop)
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-
+    void  goToFragmat(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
 
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
-        if(activefragmant.equals(RatingFragmant.class.getSimpleName()))
-        {
-            menuSetting.setVisible(false);
-            toolbar.findViewById(R.id.edit_search).setVisibility(View.GONE);
-            toolbar.setTitle("Rate Us");
-
-        }
-        else if (activefragmant.equals(BookmarkFragment.class.getSimpleName()))
-        {
-            menuSetting.setVisible(false);
-            toolbar.findViewById(R.id.edit_search).setVisibility(View.GONE);
-            toolbar.setTitle("Bookmark");
-        }
-        else if(activefragmant.equals(AboutFragmant.class.getSimpleName()))
-        {
-            menuSetting.setVisible(false);
-            toolbar.findViewById(R.id.edit_search).setVisibility(View.GONE);
-            toolbar.setTitle("About");
-
-        }
-
-        else if(activefragmant.equals(DictionaryFragment.class.getSimpleName()))
-        {
-            menuSetting.setVisible(true);
-            toolbar.findViewById(R.id.edit_search).setVisibility(View.VISIBLE);
-            //toolbar.setTitle("");
-
-        }
-          return true;
-    }
 }

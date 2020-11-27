@@ -56,11 +56,6 @@ public class AboutFragmant extends Fragment {
         super.onDetach();
 
     }
-    public void setOnFragmentListener(FragmentListner listener) {
-
-        this.listener = listener;
-
-    }
 
 
 }

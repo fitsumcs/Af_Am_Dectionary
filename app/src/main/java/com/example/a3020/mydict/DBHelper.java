@@ -18,14 +18,13 @@ import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
     private Context mcContext;
-    public static final String DATABASE_NAME = "DictionaryDatabase.db";
+    public static final String DATABASE_NAME = "Database.db";
     public static final int DATABASE_VERSION = 1;
     private String DATABASE_LOCATION = "";
     private String DATABASE_FULLPATH = "";
     public SQLiteDatabase mDB;
 
     private final String AfToAm = "AfToAm";
-    private final String AmToAf = "AmToAf";
     private final String bookmark = "bookmark";
 
     private final String COL_KEY = "key";
@@ -89,20 +88,9 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // LIst of word from db
-    public ArrayList<String> getWord(int dicType) {
-        String tableName = getTableName(dicType);
+    public ArrayList<String> getWord() {
 
-        String q = "";
-        if(tableName=="AfToAm")
-        {
-            q = "SELECT * FROM " + AfToAm;
-        }
-        else if(tableName=="AmToAf")
-        {
-            q = "SELECT * FROM  " + AmToAf;
-        }
-
-
+        String q = "SELECT * FROM " + AfToAm;
 
         Cursor result = mDB.rawQuery(q, null);
         ArrayList<String> source = new ArrayList<String>();
@@ -203,11 +191,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public Word getWord(String key, int dicType) {
-        String tableName = getTableName(dicType);
 
-
-
-        String q = "SELECT * FROM " +tableName+ " WHERE [key] =  (?) ";
+        String q = "SELECT * FROM " +AfToAm + " WHERE [key] =  (?) ";
         Cursor result = mDB.rawQuery(q, new String[]{key});
         Word word = new Word();
         while (result.moveToNext()) {
@@ -237,18 +222,4 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-
-    public String getTableName(int dictType) {
-        String tableName = "";
-        if (dictType == R.id.action_aftoam) {
-            tableName = AfToAm;
-
-        } else if (dictType == R.id.action_amtoaf) {
-
-            tableName = AmToAf;
-        }
-
-
-        return tableName;
-    }
 }

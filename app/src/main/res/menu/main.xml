@@ -10,7 +10,7 @@
     </item>
 
     <item
-        android:id="@+id/action_aftoam"
+        android:id="@+id/action_bookmark"
         android:orderInCategory="100"
         android:title="Book Mark"
         app:showAsAction="never" />
@@ -22,9 +22,9 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/aboutUs"
+        android:id="@+id/action_aboutUs"
         android:icon="@drawable/amtoaf"
-        android:title="Help"
+        android:title="About Us"
         android:orderInCategory="100"
         app:showAsAction="never" />
 

@@ -60,7 +60,7 @@ public class BookmarkFragment extends Fragment {
 
 
         bookmarkList = (ListView) view.findViewById(R.id.bookmarkList);
-        adapter = new BookmarkAdapter(getActivity(),dbHelper.getAllWordFromBookMark() );
+        adapter = new BookmarkAdapter(getActivity(),dbHelper.getWord() );
         bookmarkList.setAdapter(adapter);
         adapter.setOnItemClick(new ListItemListner() {
             @Override

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class DictionaryFragment extends Fragment {
 
-    private String value = "Hello Evryone";
     private FragmentListner listener;
     ArrayAdapter<String> adapter;
     ListView dictList;
