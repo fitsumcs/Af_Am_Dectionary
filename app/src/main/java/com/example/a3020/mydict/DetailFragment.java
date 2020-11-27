@@ -3,6 +3,7 @@ package com.example.a3020.mydict;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,7 +16,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DetailFragment extends Fragment {
+import java.util.Locale;
+
+public class DetailFragment extends Fragment implements TextToSpeech.OnInitListener {
 
     private  String value = "";
     private TextView tvWord;
@@ -23,6 +26,8 @@ public class DetailFragment extends Fragment {
     private WebView bttranslate;
     private DBHelper dbHelper;
     private int dicType;
+
+    private TextToSpeech tts;
 
 
 
@@ -59,6 +64,7 @@ public class DetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         tvWord = (TextView) view.findViewById(R.id.btnWord);
         bttranslate = (WebView) view.findViewById(R.id.wordTranslate);
+        tts = new TextToSpeech(getContext(), this);
         btVol = (ImageButton) view.findViewById(R.id.btnVol);
         btBookmark = (ImageButton) view.findViewById(R.id.btnBookmark);
         btBookmark.setTag(0);
@@ -98,8 +104,25 @@ public class DetailFragment extends Fragment {
             }
         });
 
+        btVol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                speakOut();
+            }
+        });
 
 
+
+    }
+
+    @Override
+    public void onDestroy() {
+        // Don't forget to shutdown tts!
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -115,4 +138,28 @@ public class DetailFragment extends Fragment {
     }
 
 
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+
+            int result = tts.setLanguage(Locale.US);
+
+            if (result == TextToSpeech.LANG_MISSING_DATA
+                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "This Language is not supported");
+            } else {
+                btVol.setEnabled(true);
+            }
+
+        } else {
+            Log.e("TTS", "Initilization Failed!");
+        }
+    }
+
+    private void speakOut() {
+
+        String text = tvWord.getText().toString();
+
+        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
 }
