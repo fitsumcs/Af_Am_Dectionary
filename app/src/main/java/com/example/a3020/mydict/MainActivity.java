@@ -23,7 +23,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+         {
 
     MenuItem menuSetting;
     DictionaryFragment dictionaryFragment;
@@ -38,19 +38,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         dbHelper = new DBHelper(this);
         setSupportActionBar(toolbar);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
         // the navigato of fragmant
         dictionaryFragment = new DictionaryFragment();
@@ -62,11 +53,8 @@ public class MainActivity extends AppCompatActivity
         dictionaryFragment.setOnFragmentListener(new FragmentListner() {
             @Override
             public void onItemClick(String value) {
-                String id= SaveState.getState(MainActivity.this,"dict_type");
-                int dictType = id==null?R.id.action_aftoam : Integer.valueOf(id);
 
-
-                 goToFragmat(DetailFragment.getNewInstance(value,dbHelper,dictType),false);
+                 goToFragmat(DetailFragment.getNewInstance(value,dbHelper),false);
 
 
             }
@@ -75,10 +63,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(String value) {
 
-                String id= SaveState.getState(MainActivity.this,"dict_type");
-                int dictType = id==null?R.id.action_aftoam : Integer.valueOf(id);
 
-                goToFragmat(DetailFragment.getNewInstance(value,dbHelper,dictType),false);
+                goToFragmat(DetailFragment.getNewInstance(value,dbHelper),false);
             }
         });
 
@@ -103,15 +89,15 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,15 +105,15 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         menuSetting =  menu.findItem(R.id.action_settings);
 
-        String id= SaveState.getState(this,"dict_type");
+       // String id= SaveState.getState(this,"dict_type");
 
-        if(id!= null)
-            onOptionsItemSelected(menu.findItem(Integer.valueOf(id)));
-        else
-            {
-                ArrayList<String> source = dbHelper.getWord(R.id.action_aftoam);
-                dictionaryFragment.resetDataSource(source);
-        }
+//        if(id!= null)
+//            onOptionsItemSelected(menu.findItem(Integer.valueOf(id)));
+//        else
+//            {
+//                ArrayList<String> source = dbHelper.getWord(R.id.action_aftoam);
+//                dictionaryFragment.resetDataSource(source);
+//        }
         return true;
     }
 
@@ -140,7 +126,7 @@ public class MainActivity extends AppCompatActivity
 
         if(id!=R.id.action_clear)
         {
-            SaveState.saveState(this,"dict_type",String.valueOf(id));
+            //SaveState.saveState(this,"dict_type",String.valueOf(id));
         }
 
         //allaows for swthing menu
@@ -170,69 +156,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        //fragmant navigation ....
-        if (id == R.id.nav_bookmark)
-        {
-            String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
-
-
-            if (!activefragmant.equals(BookmarkFragment.class.getSimpleName()))
-            {
-                goToFragmat(bookmarkFragment,false);
-
-            }
-
-
-        }
-        if (id == R.id.nav_home)
-        {
-            String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
-
-
-            if (!activefragmant.equals(DictionaryFragment.class.getSimpleName()))
-            {
-                goToFragmat(dictionaryFragment,false);
-
-            }
-
-
-        }
-        if (id == R.id.nav_about)
-        {
-            String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
-
-
-            if (!activefragmant.equals(AboutFragmant.class.getSimpleName()))
-            {
-                goToFragmat(aboutFragmant,false);
-
-            }
-
-
-        }
-        if (id == R.id.nav_rate)
-        {
-            String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
-
-
-            if (!activefragmant.equals(RatingFragmant.class.getSimpleName()))
-            {
-                goToFragmat(ratingFragmant,false);
-
-            }
-
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
     void  goToFragmat(Fragment fragment, boolean isTop)
     {
         FragmentManager fragmentManager = getSupportFragmentManager();

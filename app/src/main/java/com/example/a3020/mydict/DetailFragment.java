@@ -31,12 +31,11 @@ public class DetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static DetailFragment getNewInstance(String value , DBHelper dbHelper , int dicType)
+    public static DetailFragment getNewInstance(String value , DBHelper dbHelper)
     {
         DetailFragment detailFragment = new DetailFragment();
         detailFragment.value = value;
         detailFragment.dbHelper = dbHelper;
-        detailFragment.dicType = dicType;
         return detailFragment;
 
     }

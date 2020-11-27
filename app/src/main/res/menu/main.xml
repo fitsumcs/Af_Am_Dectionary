@@ -3,24 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/aftoam"
         android:orderInCategory="100"
-        android:title=""
-        app:showAsAction="always">
-        <menu>
-            <item
-                android:id="@+id/action_aftoam"
-                android:orderInCategory="100"
-                android:icon="@drawable/aftoam"
-                android:title="Afar - Amaharic"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/action_amtoaf"
-                android:icon="@drawable/amtoaf"
-                android:title="Amaharic - Afar"
-                android:orderInCategory="100"
-                app:showAsAction="never" />
+        android:title="History"
+        app:showAsAction="never">
 
-        </menu>
     </item>
+
+    <item
+        android:id="@+id/action_aftoam"
+        android:orderInCategory="100"
+        android:title="Book Mark"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_amtoaf"
+        android:icon="@drawable/amtoaf"
+        android:title="Share App"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/aboutUs"
+        android:icon="@drawable/amtoaf"
+        android:title="Help"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/LikeUs"
+        android:icon="@drawable/amtoaf"
+        android:title="Like Us"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
 </menu>
