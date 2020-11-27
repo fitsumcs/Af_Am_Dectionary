@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     RatingFragmant ratingFragmant;
     DetailFragment detailFragment;
     DBHelper dbHelper;
-    ArrayList<String> source;
+    ArrayList<Word> source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

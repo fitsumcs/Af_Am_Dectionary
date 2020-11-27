@@ -76,7 +76,7 @@ public class DictionaryFragment extends Fragment implements SearchView.OnQueryTe
             @Override
             public void onItemClick(int position) {
                 if (listener!=null)
-                    listener.onItemClick(String.valueOf(adapter.getItem(position)));
+                    listener.onItemClick(adapter.getItem(position).toString());
 
             }
         });

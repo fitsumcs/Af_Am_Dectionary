@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class DictionaryAdapter extends BaseAdapter {
 
@@ -16,12 +17,15 @@ public class DictionaryAdapter extends BaseAdapter {
     private ListItemListner listner;
     private ListItemListner listnerBtnDelete;
     Context mContext;
-    ArrayList<String> mSource;
+    ArrayList<Word> mSource;
+    private ArrayList<Word> arraylist;
 
-    public DictionaryAdapter(Context context,ArrayList<String> source)
+    public DictionaryAdapter(Context context,ArrayList<Word> source)
     {
         this.mContext = context;
         this.mSource = source;
+        this.arraylist = new ArrayList<Word>();
+        this.arraylist.addAll(mSource);
 
     }
 
@@ -33,7 +37,7 @@ public class DictionaryAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return mSource.get(position);
+        return mSource.get(position).getKey();
     }
 
     @Override
@@ -60,7 +64,7 @@ public class DictionaryAdapter extends BaseAdapter {
 
         }
 
-        viewHolder.textView.setText(mSource.get(position));
+        viewHolder.textView.setText(mSource.get(position).getKey());
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,10 +84,22 @@ public class DictionaryAdapter extends BaseAdapter {
 
     }
 
-    public void filter(String text) {
-
-
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        mSource.clear();
+        if (charText.length() == 0) {
+            mSource.addAll(arraylist);
+        } else {
+            for (Word wp : arraylist) {
+                if (wp.getKey().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    mSource.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
+
 
     class  ViewHolder
     {

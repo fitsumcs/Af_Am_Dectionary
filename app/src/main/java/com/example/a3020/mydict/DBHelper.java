@@ -88,14 +88,15 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // LIst of word from db
-    public ArrayList<String> getWord() {
+    public ArrayList<Word> getWord() {
 
         String q = "SELECT * FROM " + EnToAf;
 
         Cursor result = mDB.rawQuery(q, null);
-        ArrayList<String> source = new ArrayList<String>();
+        ArrayList<Word> source = new ArrayList<Word>();
         while (result.moveToNext()) {
-            source.add(result.getString(result.getColumnIndex(COL_KEY)));
+            Word word = new Word(result.getString(result.getColumnIndex(COL_KEY)) , result.getString(result.getColumnIndex(COL_VALUE)));
+            source.add(word);
 
         }
 
