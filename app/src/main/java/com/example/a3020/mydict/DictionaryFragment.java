@@ -27,7 +27,7 @@ public class DictionaryFragment extends Fragment {
     private FragmentListner listener;
     private DBHelper dbHelper;
     ListView dictionaryList;
-    BookmarkAdapter adapter;
+    DictionaryAdapter adapter;
 
 
     public DictionaryFragment() {
@@ -63,7 +63,7 @@ public class DictionaryFragment extends Fragment {
 
 
         dictionaryList = (ListView) view.findViewById(R.id.dictionaryList);
-        adapter = new BookmarkAdapter(getActivity(),dbHelper.getWord() );
+        adapter = new DictionaryAdapter(getActivity(),dbHelper.getWord() );
         dictionaryList.setAdapter(adapter);
         adapter.setOnItemClick(new ListItemListner() {
             @Override
