@@ -107,6 +107,22 @@ public class BookmarkFragment extends Fragment implements SearchView.OnQueryText
 
     }
 
+   public  void clearBookmark()
+   {
+
+       if(adapter.getCount() !=0)
+       {
+           dbHelper.clearBookmark();
+           bookmarkList.setAdapter(null);
+           adapter.notifyDataSetChanged();
+           Toast.makeText(getContext(),"Bookmark Cleared !!",Toast.LENGTH_SHORT).show();
+       }
+       else {
+           Toast.makeText(getContext(),"Bookmark is Empty :) ",Toast.LENGTH_SHORT).show();
+       }
+
+   }
+
     public void setOnFragmentListener(FragmentListner listener) {
 
         this.listener = listener;

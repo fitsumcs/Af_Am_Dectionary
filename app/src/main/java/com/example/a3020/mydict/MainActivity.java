@@ -105,7 +105,10 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_share) {
             shareIt();
         }
-
+        if (id == R.id.action_clear) {
+            bookmarkFragment.clearBookmark();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, dictionaryFragment).commit();
+        }
 
         return super.onOptionsItemSelected(item);
     }
