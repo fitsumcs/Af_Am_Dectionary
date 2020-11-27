@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:lines="3"
-        android:hint="Tell us what antting you want us to improve"
+        android:hint="Tell us antting you want us to improve"
         android:gravity="top"
         />
 

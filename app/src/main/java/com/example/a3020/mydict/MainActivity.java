@@ -1,5 +1,6 @@
 package com.example.a3020.mydict;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -98,6 +99,12 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_aboutUs) {
             goToFragmat(aboutFragmant);
         }
+        if (id == R.id.action_LikeUs) {
+            goToFragmat(ratingFragmant);
+        }
+        if (id == R.id.action_share) {
+            shareIt();
+        }
 
 
         return super.onOptionsItemSelected(item);
@@ -107,6 +114,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
         if (activefragmant.equals(DictionaryFragment.class.getSimpleName()))
+        {
+            invalidateOptionsMenu();
+            menu.findItem(R.id.action_clear).setVisible(false);
+            getSupportActionBar().setTitle("English  to Afar Dictionary");
+        }
+        if (activefragmant.equals(RatingFragmant.class.getSimpleName()))
         {
             invalidateOptionsMenu();
             menu.findItem(R.id.action_clear).setVisible(false);
@@ -132,13 +145,23 @@ public class MainActivity extends AppCompatActivity {
             menu.findItem(R.id.action_share).setVisible(false);
             menu.findItem(R.id.action_aboutUs).setVisible(false);
             menu.findItem(R.id.action_LikeUs).setVisible(false);
-            menu.findItem(R.id.action_clear).setVisible(false);
            getSupportActionBar().setTitle("BookMark");
         }
         return super.onPrepareOptionsMenu(menu);
     }
     void goToFragmat(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack("my_fragment").commit();
+
+    }
+
+    private void shareIt() {
+
+        Intent intent =new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "English  to Afar Dictionary");
+        intent.putExtra(Intent.EXTRA_TEXT,"Check this Awesome Dictionary App https://play.google.com/store/apps/ENtoAF ");
+        intent.setType("text/plain");
+        startActivity(intent);
 
     }
 
