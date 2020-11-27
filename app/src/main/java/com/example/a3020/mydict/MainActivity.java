@@ -1,5 +1,6 @@
 package com.example.a3020.mydict;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -102,6 +103,40 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
+        if (activefragmant.equals(DictionaryFragment.class.getSimpleName()))
+        {
+            invalidateOptionsMenu();
+            menu.findItem(R.id.action_clear).setVisible(false);
+            getSupportActionBar().setTitle("English  to Afar Dictionary");
+        }
+        if (activefragmant.equals(AboutFragmant.class.getSimpleName()))
+        {
+            invalidateOptionsMenu();
+            menu.findItem(R.id.action_clear).setVisible(false);
+            getSupportActionBar().setTitle("English  to Afar Dictionary");
+        }
+        if (activefragmant.equals(DetailFragment.class.getSimpleName()))
+        {
+            invalidateOptionsMenu();
+            menu.findItem(R.id.action_clear).setVisible(false);
+            getSupportActionBar().setTitle("English  to Afar Dictionary");
+        }
+        if (activefragmant.equals(BookmarkFragment.class.getSimpleName()))
+        {
+            invalidateOptionsMenu();
+            menu.findItem(R.id.action_history).setVisible(false);
+            menu.findItem(R.id.action_bookmark).setVisible(false);
+            menu.findItem(R.id.action_share).setVisible(false);
+            menu.findItem(R.id.action_aboutUs).setVisible(false);
+            menu.findItem(R.id.action_LikeUs).setVisible(false);
+            menu.findItem(R.id.action_clear).setVisible(false);
+           getSupportActionBar().setTitle("BookMark");
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
     void goToFragmat(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack("my_fragment").commit();
 

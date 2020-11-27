@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_history"
         android:orderInCategory="100"
         android:title="History"
         app:showAsAction="never">
@@ -15,24 +15,27 @@
         android:title="Book Mark"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_amtoaf"
-        android:icon="@drawable/amtoaf"
+        android:id="@+id/action_share"
         android:title="Share App"
         android:orderInCategory="100"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_aboutUs"
-        android:icon="@drawable/amtoaf"
         android:title="About Us"
         android:orderInCategory="100"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/LikeUs"
-        android:icon="@drawable/amtoaf"
+        android:id="@+id/action_LikeUs"
         android:title="Like Us"
         android:orderInCategory="100"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_clear"
+        android:orderInCategory="100"
+        android:title="CLEAR"
+        app:showAsAction="always" />
 
 </menu>
