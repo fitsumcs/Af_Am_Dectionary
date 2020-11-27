@@ -39,7 +39,7 @@ public class BookmarkAdapter extends BaseAdapter
 
     @Override
     public Object getItem(int position) {
-        return mSource.get(position);
+        return mSource.get(position).getKey();
     }
 
     @Override

@@ -71,7 +71,7 @@ public class BookmarkFragment extends Fragment implements SearchView.OnQueryText
             @Override
             public void onItemClick(int position) {
                 if (listener!=null)
-                   listener.onItemClick(String.valueOf(adapter.getItem(position)));
+                   listener.onItemClick(adapter.getItem(position).toString());
 
             }
         });
@@ -110,27 +110,6 @@ public class BookmarkFragment extends Fragment implements SearchView.OnQueryText
     public void setOnFragmentListener(FragmentListner listener) {
 
         this.listener = listener;
-
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_clear,menu);
-        MenuItem item = menu.findItem(R.id.action_clear);
-
-        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                dbHelper.clearBookmark();
-                bookmarkList.setAdapter(null);
-                adapter.notifyDataSetChanged();
-                Toast.makeText(getContext(),"Bookmark Cleared !!",Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-        item.setVisible(true);
-        super.onCreateOptionsMenu(menu, inflater);
 
     }
 
