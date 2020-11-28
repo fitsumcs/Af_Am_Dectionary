@@ -1,6 +1,7 @@
 package com.example.a3020.mydict;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     DictionaryFragment dictionaryFragment;
     BookmarkFragment bookmarkFragment;
     AboutFragmant aboutFragmant;
-    RatingFragmant ratingFragmant;
     DetailFragment detailFragment;
     DBHelper dbHelper;
     ArrayList<Word> source;
@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         dictionaryFragment = DictionaryFragment.getInstance(dbHelper);
         bookmarkFragment = BookmarkFragment.getInstance(dbHelper);
         aboutFragmant = new AboutFragmant();
-        ratingFragmant = new RatingFragmant();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, dictionaryFragment).commit();
 
 
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             goToFragmat(aboutFragmant);
         }
         if (id == R.id.action_LikeUs) {
-            goToFragmat(ratingFragmant);
+            startWeb();
         }
         if (id == R.id.action_share) {
             shareIt();
@@ -117,12 +116,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
         if (activefragmant.equals(DictionaryFragment.class.getSimpleName()))
-        {
-            invalidateOptionsMenu();
-            menu.findItem(R.id.action_clear).setVisible(false);
-            getSupportActionBar().setTitle("English  to Afar Dictionary");
-        }
-        if (activefragmant.equals(RatingFragmant.class.getSimpleName()))
         {
             invalidateOptionsMenu();
             menu.findItem(R.id.action_clear).setVisible(false);
@@ -168,4 +161,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void startWeb()
+    {
+        Uri uri = Uri.parse("http://www.google.com"); // missing 'http://' will cause crashed
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
 }
