@@ -243,7 +243,7 @@ public class DBHelper extends SQLiteOpenHelper {
     // LIst of word from history table
     public ArrayList<Word> getHistoryWord() {
 
-        String q = "SELECT * FROM " + history;
+        String q = "SELECT DISTINCT * FROM " + history;
 
         Cursor result = mDB.rawQuery(q, null);
         ArrayList<Word> source = new ArrayList<Word>();
