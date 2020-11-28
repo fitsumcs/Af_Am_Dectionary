@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private String DATABASE_FULLPATH = "";
     public SQLiteDatabase mDB;
 
-    private final String EnToAf = "AfToAm";
+    private final String EnToAf = "ENToAF";
     private final String history = "history";
     private final String bookmark = "bookmark";
 
