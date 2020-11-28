@@ -91,7 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
     // LIst of word from db
     public ArrayList<Word> getWord() {
 
-        String q = "SELECT * FROM " + EnToAf;
+        String q = "SELECT * FROM " + EnToAf +" ORDER BY "+COL_KEY;
 
         Cursor result = mDB.rawQuery(q, null);
         ArrayList<Word> source = new ArrayList<Word>();
@@ -110,7 +110,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<Word> getAllWordFromBookMark() {
 
         ArrayList<Word> source = new ArrayList<Word>();
-        String query = "select * from  bookmark ";
+        String query = "select * from  bookmark "+" ORDER BY "+COL_KEY;;
         Cursor result = mDB.rawQuery(query,null);
         while (result.moveToNext()) {
 
@@ -243,7 +243,7 @@ public class DBHelper extends SQLiteOpenHelper {
     // LIst of word from history table
     public ArrayList<Word> getHistoryWord() {
 
-        String q = "SELECT DISTINCT * FROM " + history;
+        String q = "SELECT DISTINCT * FROM " + history+" ORDER BY "+COL_KEY;;
 
         Cursor result = mDB.rawQuery(q, null);
         ArrayList<Word> source = new ArrayList<Word>();
