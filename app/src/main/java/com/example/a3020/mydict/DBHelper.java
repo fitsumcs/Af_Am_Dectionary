@@ -25,6 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public SQLiteDatabase mDB;
 
     private final String EnToAf = "AfToAm";
+    private final String history = "history";
     private final String bookmark = "bookmark";
 
     private final String COL_KEY = "key";
@@ -220,6 +221,56 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         return source;
+
+
+    }
+
+    // Inserting to history
+    public void addHistory(Word word)
+    {
+        try
+        {
+            String query = "INSERT INTO  history(["+COL_KEY+"],["+COL_VALUE+"]) VALUES (?,?); ";
+            mDB.execSQL(query,new Object[]{word.key,word.value});
+
+        }
+        catch (SQLException sq)
+        {
+
+        }
+    }
+
+    // LIst of word from history table
+    public ArrayList<Word> getHistoryWord() {
+
+        String q = "SELECT * FROM " + history;
+
+        Cursor result = mDB.rawQuery(q, null);
+        ArrayList<Word> source = new ArrayList<Word>();
+        while (result.moveToNext()) {
+            Word word = new Word(result.getString(result.getColumnIndex(COL_KEY)) , result.getString(result.getColumnIndex(COL_VALUE)));
+            source.add(word);
+
+        }
+
+        return source;
+
+    }
+
+    //clear history
+    public void clearHistory()
+    {
+        try
+        {
+            String query = "DELETE FROM  history ";
+            mDB.execSQL(query);
+
+        }
+        catch (SQLException sq)
+        {
+
+
+        }
 
 
     }

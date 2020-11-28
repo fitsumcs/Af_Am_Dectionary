@@ -1,48 +1,39 @@
 package com.example.a3020.mydict;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 
+public class HistoryFragment extends Fragment implements SearchView.OnQueryTextListener{
 
-public class DictionaryFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private FragmentListner listener;
     private DBHelper dbHelper;
-    ListView dictionaryList;
+    ListView historyList ;
     DictionaryAdapter adapter;
     SearchView editsearch;
 
 
-    public DictionaryFragment() {
+    public HistoryFragment() {
         // Required empty public constructor
     }
 
-    public static DictionaryFragment getInstance(DBHelper dbHelper){
+    public static HistoryFragment getInstance(DBHelper dbHelper){
 
-        DictionaryFragment dictionaryFragment = new DictionaryFragment();
-        dictionaryFragment.dbHelper = dbHelper;
+        HistoryFragment historyFragment = new HistoryFragment();
+        historyFragment .dbHelper = dbHelper;
 
-        return  dictionaryFragment;
+        return  historyFragment ;
 
     }
 
@@ -57,7 +48,7 @@ public class DictionaryFragment extends Fragment implements SearchView.OnQueryTe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dictionary, container, false);
+        return inflater.inflate(R.layout.fragment_history, container, false);
     }
 
     @Override
@@ -65,21 +56,21 @@ public class DictionaryFragment extends Fragment implements SearchView.OnQueryTe
         super.onViewCreated(view, savedInstanceState);
 
 
-        dictionaryList = (ListView) view.findViewById(R.id.dictionaryList);
-        adapter = new DictionaryAdapter(getActivity(),dbHelper.getWord() );
+        historyList = (ListView) view.findViewById(R.id.historyList);
+        adapter = new DictionaryAdapter(getActivity(),dbHelper.getHistoryWord() );
 
         // Locate the EditText in listview_main.xml
         editsearch = (SearchView) view.findViewById(R.id.search);
         editsearch.setOnQueryTextListener(this);
 
-        dictionaryList.setAdapter(adapter);
+        historyList .setAdapter(adapter);
         adapter.setOnItemClick(new ListItemListner() {
             @Override
             public void onItemClick(int position) {
                 if (listener!=null)
                     listener.onItemClick(adapter.getItem(position).toString());
-                    Word word = dbHelper.getWord(adapter.getItem(position).toString());
-                    dbHelper.addHistory(word);
+                Word word = dbHelper.getWord(adapter.getItem(position).toString());
+                dbHelper.addHistory(word);
 
             }
         });
@@ -110,6 +101,21 @@ public class DictionaryFragment extends Fragment implements SearchView.OnQueryTe
     @Override
     public void onDetach() {
         super.onDetach();
+
+    }
+    public  void clearHistory()
+    {
+
+        if(adapter.getCount() !=0)
+        {
+            dbHelper.clearHistory();
+            historyList .setAdapter(null);
+            adapter.notifyDataSetChanged();
+            Toast.makeText(getContext(),"History Cleared !!",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getContext(),"History is Empty :) ",Toast.LENGTH_SHORT).show();
+        }
 
     }
 

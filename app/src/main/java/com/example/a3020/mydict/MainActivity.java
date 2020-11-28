@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     MenuItem menuSetting;
     DictionaryFragment dictionaryFragment;
+    HistoryFragment historyFragment;
     BookmarkFragment bookmarkFragment;
     AboutFragmant aboutFragmant;
     DetailFragment detailFragment;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         // the navigato of fragmant
         dictionaryFragment = DictionaryFragment.getInstance(dbHelper);
+        historyFragment = HistoryFragment.getInstance(dbHelper);
         bookmarkFragment = BookmarkFragment.getInstance(dbHelper);
         aboutFragmant = new AboutFragmant();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, dictionaryFragment).commit();
@@ -61,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         bookmarkFragment.setOnFragmentListener(new FragmentListner() {
+            @Override
+            public void onItemClick(String value) {
+
+
+                goToFragmat(DetailFragment.getNewInstance(value, dbHelper));
+            }
+        });
+
+        historyFragment.setOnFragmentListener(new FragmentListner() {
             @Override
             public void onItemClick(String value) {
 
@@ -98,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_aboutUs) {
             goToFragmat(aboutFragmant);
         }
+        if (id == R.id.action_history) {
+            goToFragmat(historyFragment);
+        }
         if (id == R.id.action_LikeUs) {
             startWeb();
         }
@@ -105,8 +119,16 @@ public class MainActivity extends AppCompatActivity {
             shareIt();
         }
         if (id == R.id.action_clear) {
-            bookmarkFragment.clearBookmark();
-            //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, dictionaryFragment).commit();
+            String activefragmant = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
+            if (activefragmant.equals(BookmarkFragment.class.getSimpleName()))
+            {
+                bookmarkFragment.clearBookmark();
+            }
+            else if(activefragmant.equals(HistoryFragment.class.getSimpleName()))
+            {
+                historyFragment.clearHistory();
+            }
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -142,6 +164,16 @@ public class MainActivity extends AppCompatActivity {
             menu.findItem(R.id.action_aboutUs).setVisible(false);
             menu.findItem(R.id.action_LikeUs).setVisible(false);
            getSupportActionBar().setTitle("BookMark");
+        }
+        if (activefragmant.equals(HistoryFragment.class.getSimpleName()))
+        {
+            invalidateOptionsMenu();
+            menu.findItem(R.id.action_history).setVisible(false);
+            menu.findItem(R.id.action_bookmark).setVisible(false);
+            menu.findItem(R.id.action_share).setVisible(false);
+            menu.findItem(R.id.action_aboutUs).setVisible(false);
+            menu.findItem(R.id.action_LikeUs).setVisible(false);
+            getSupportActionBar().setTitle("History");
         }
         return super.onPrepareOptionsMenu(menu);
     }
